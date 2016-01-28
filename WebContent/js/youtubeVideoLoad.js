@@ -8,3 +8,9 @@ function showValue(newValue)
 {
 	document.getElementById("lblBackTime").innerHTML=newValue;
 }
+
+function playSong(songId){
+	console.log("playSong: "+songId);
+	player.loadVideoById(songId, 0, "large")
+	
+}

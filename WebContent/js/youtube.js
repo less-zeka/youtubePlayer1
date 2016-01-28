@@ -15,13 +15,15 @@ function goBack(count){
       // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
       var player;
-      function onYouTubeIframeAPIReady() {
-    	 // var videoId = document.getElementById("txtVideoId").value;
-    	  //console.log(document.getElementById("txtVideoId").value)
+      function onYouTubeIframeAPIReady(){
+    	  onYouTubeIframeAPIReady('Uj9GcXEU5wg');
+      }
+      function onYouTubeIframeAPIReady(songId) {
+    	console.log('onYouTubeIframeAPIReady ' + songId);
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          videoId: 'Uj9GcXEU5wg',
+          videoId: songId,
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
