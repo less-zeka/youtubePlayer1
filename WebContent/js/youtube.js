@@ -1,7 +1,10 @@
 function goBack(count){
-    	  player.seekTo(player.getCurrentTime()-5*count, true);
-          console.log(player.getCurrentTime());
-      }
+	var backTime = document.getElementById("backTime").value;
+	console.log(backTime);
+	player.seekTo(player.getCurrentTime()-backTime*count, true);   
+	console.log(player.getCurrentTime());
+}
+
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
@@ -13,10 +16,12 @@ function goBack(count){
       //    after the API code downloads.
       var player;
       function onYouTubeIframeAPIReady() {
+    	 // var videoId = document.getElementById("txtVideoId").value;
+    	  //console.log(document.getElementById("txtVideoId").value)
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          videoId: '4N3N1MlvVc4',  //'Uj9GcXEU5wg',
+          videoId: 'Uj9GcXEU5wg',
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
