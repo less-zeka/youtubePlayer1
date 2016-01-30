@@ -153,7 +153,16 @@ if (!('webkitSpeechRecognition' in window)) {
       if (event.results[i].isFinal) {
         final_transcript += event.results[i][0].transcript;
         final_transcript = final_transcript.toLowerCase();
+        
         count = (final_transcript.match(/back/g) || []).length;
+        
+        if(final_transcript.contains('stop')){
+        	player.pauseVideo();
+        }
+        
+        if(final_transcript.contains('play')){
+        	player.playVideo();
+        }
         
         console.log("count: "+count);
         

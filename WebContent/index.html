@@ -1,57 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>back?</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  
+<title>back?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw=="
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A=="
+	crossorigin="anonymous"></script>
 
-  
+
+
 </head>
 <body>
-	<div id="player"></div>		
-	<input id="backTime" type="range"  min="1" max="30" value="10" step="1" onchange="showValue(this.value)"/>
-	<span id="lblBackTime">10</span>
-	<input type="text" id="songId" value="Uj9GcXEU5wg">
-	<button onclick="playSong(document.getElementById('songId').value)">Play song</button>
-	<div id="info">
-  <p id="info_start">Click on the microphone first.</p>
-  <p id="info_speak_now">Speak now.</p>
-  <p id="info_no_speech">No speech was detected. You may need to adjust your
-    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-      microphone settings</a>.</p>
-  <p id="info_no_microphone" style="display:none">
-    No microphone was found. Ensure that a microphone is installed and that
-    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-    microphone settings</a> are configured correctly.</p>
-  <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
-  <p id="info_denied">Permission to use microphone was denied.</p>
-  <p id="info_blocked">Permission to use microphone is blocked. To change,
-    go to chrome://settings/contentExceptions#media-stream</p>
-  <p id="info_upgrade">Web Speech API is not supported by this browser.
-     Upgrade to <a href="//www.google.com/chrome">Chrome</a>
-     version 25 or later.</p>
-</div>
-<div class="right">
-  <button id="start_button" onclick="startButton(event)">
-    <img id="start_img" src="img/mic.gif" alt="Start"></button>
-    
-</div>
-<div id="results">
-  <span id="final_span" class="final"></span>
-  <span id="interim_span" class="interim"></span>
-  <p>
-</div>
-<div class="center">
-  <p>
-  <div id="div_language">
-    <select id="select_language" onchange="updateCountry()"></select>
-    &nbsp;&nbsp;
-    <select id="select_dialect"></select>
-  </div>
-</div>
-  <script src="js/googleSpeech.js"></script>
-  <script src="js/youtube.js"></script>
-  <script src="js/youtubeVideoLoad.js"></script>
-    </body>
+	<div class="container">
+		<div class="row">
+			<div id="player" class="col-md-8"></div>
+			<button class="col-md-4" onclick="playSong('Uj9GcXEU5wg')">08
+				Departure (Reflection) - Max Richter</button>
+			<button class="col-md-4" onclick="playSong('Oa-ae6_okmg')">Mad
+				World - Gary Jules</button>
+			<button class="col-md-4" onclick="playSong('hLQl3WQQoQ0')">Adele
+				- Someone Like You</button>
+			<button class="col-md-4" onclick="playSong('GBFlwcopJwQ')">Nirvana
+				- Where Did You Sleep Last Night</button>
+
+			<div class="col-md-4">
+				<input id="backTime" type="range" min="1" max="30" value="10"
+					step="1" onchange="showValue(this.value)" />
+			</div>
+			<span class="col-md-4" id="lblBackTime">10</span> <input
+				class="col-md-4" type="text" id="songId" value="Uj9GcXEU5wg">
+			<button class="col-md-4"
+				onclick="playSong(document.getElementById('songId').value)">Play
+				song</button>
+
+		</div>
+	</div>
+
+	<div class="container" id="info">
+		<div id="info_start">Click on the microphone first.</div>
+		<div id="info_speak_now">Speak now.</div>
+		<div id="info_speak_now">
+		Commands:
+			<ul>
+				<li>Back</li>
+				<li>Stop</li>
+				<li>Play</li>
+				</ul>
+				</div>
+		
+		<p id="info_no_speech">
+			No speech was detected. You may need to adjust your <a
+				href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+				microphone settings</a>.
+		</p>
+		<p id="info_no_microphone" style="display: none">
+			No microphone was found. Ensure that a microphone is installed and
+			that <a
+				href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+				microphone settings</a> are configured correctly.
+		</p>
+		<p id="info_allow">Click the "Allow" button above to enable your
+			microphone.</p>
+		<p id="info_denied">Permission to use microphone was denied.</p>
+		<p id="info_blocked">Permission to use microphone is blocked. To
+			change, go to chrome://settings/contentExceptions#media-stream</p>
+		<p id="info_upgrade">
+			Web Speech API is not supported by this browser. Upgrade to <a
+				href="//www.google.com/chrome">Chrome</a> version 25 or later.
+		</p>
+	</div>
+	<div class="right">
+		<button id="start_button" onclick="startButton(event)">
+			<img id="start_img" src="img/mic.gif" alt="Start">
+		</button>
+
+	</div>
+	<div id="results">
+		<span id="final_span" class="final"></span> <span id="interim_span"
+			class="interim"></span>
+		<p>
+	</div>
+	<div class="center">
+		<p>
+		<div id="div_language">
+			<select id="select_language" onchange="updateCountry()"></select>
+			&nbsp;&nbsp; <select id="select_dialect"></select>
+		</div>
+	</div>
+	<script src="js/googleSpeech.js"></script>
+	<script src="js/youtube.js"></script>
+	<script src="js/youtubeVideoLoad.js"></script>
+</body>
 </html>
