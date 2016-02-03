@@ -81,7 +81,6 @@ function updateCountry() {
   select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
 }
 
-var create_email = false;
 var final_transcript = '';
 var recognizing = false;
 var ignore_onend;
@@ -122,85 +121,56 @@ if (!('webkitSpeechRecognition' in window)) {
   };
 
   recognition.onend = function() {
-    recognizing = false;
-    if (ignore_onend) {
-      return;
-    }
-    start_img.src = 'img/mic.gif';
-    if (!final_transcript) {
-      showInfo('info_start');
-      return;
-    }
-    showInfo('');
-    if (window.getSelection) {
-      window.getSelection().removeAllRanges();
-      var range = document.createRange();
-      range.selectNode(document.getElementById('final_span'));
-      window.getSelection().addRange(range);
-    }
-    if (create_email) {
-      create_email = false;
-      createEmail();
-    }
+	  recognition.start();
   };
 
   var counter = 0;
   
-  recognition.onresult = function(event) {
-    var interim_transcript = '';
-    var count = 0;
-    for (var i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        final_transcript += event.results[i][0].transcript;
-        final_transcript = final_transcript.toLowerCase();
-        
-        count = (final_transcript.match(/back/g) || []).length;
-        
-        if(final_transcript.contains('stop')){
-        	player.pauseVideo();
-        }
-        
-        if(final_transcript.contains('play')){
-        	player.playVideo();
-        }
-        
-        console.log("count: "+count);
-        
-        if(count>0){
-        	goBack(count);
-        }
-      } else {
-        interim_transcript += event.results[i][0].transcript;
-      }
-    }
-    console.log(final_transcript);
-    
-    final_span.innerHTML = linebreak(final_transcript);
-    interim_span.innerHTML = linebreak(interim_transcript);
-
-    if(final_transcript){
-    	
-        final_transcript = '';
-    }
-  };
-}
-
+  recognition.onresult = function(e) { 
+    	  for(var i=0; i < e.results.length; i++){
+    		  for(var j=0; j < e.results[i].length; j++){
+    			  var recognizedWord = e.results[i][j].transcript;
+        		  
+        		  console.log("recognizedWord: "+recognizedWord);
+        		  final_span.innerHTML = recognizedWord;
+        		  
+        		  if(recognizedWord.contains('back')){
+        	        	goBack(1);
+        	        	
+        	        	e.results = {};
+            	        e.results[i][j].transcript = ""; 
+        	        	return true;
+        	        }
+        	        
+        	        if(recognizedWord.contains('stop')){
+        	        	player.pauseVideo();
+        	        }
+        	        
+        	        if(recognizedWord.contains('play')){
+        	        	player.playVideo();
+        	        }
+        	        
+        	        e.results[i][j].transcript = ""; 
+    		  }
+    		  
+    	  }
+      };
 
 function upgrade() {
   start_button.style.visibility = 'hidden';
   showInfo('info_upgrade');
-}
+};
 
 var two_line = /\n\n/g;
 var one_line = /\n/g;
 function linebreak(s) {
   return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
-}
+};
 
 var first_char = /\S/;
 function capitalize(s) {
   return s.replace(first_char, function(m) { return m.toUpperCase(); });
-}
+};
 
 function startButton(event) {
   if (recognizing) {
@@ -216,7 +186,7 @@ function startButton(event) {
   start_img.src = 'img/mic-slash.gif';
   showInfo('info_allow');
   start_timestamp = event.timeStamp;
-}
+};
 
 function showInfo(s) {
   if (s) {
@@ -230,3 +200,4 @@ function showInfo(s) {
     info.style.visibility = 'hidden';
   }
 }
+};
